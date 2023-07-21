@@ -15,13 +15,11 @@
 # db/seeds.rb
 
 # Crea un usuario de ejemplo
-user = User.create!(
-    email: "faker@mail.com",
-    password: "123456",
-    password_confirmation: "123456",
-    name: "Persona"
-  )
-  
+user = User.find_or_create_by(email: "faker@mail.com") do |u|
+    u.password = "123456"
+    u.password_confirmation = "123456"
+    u.name = "Persona"
+  end
   # Crea una imagen de ejemplo para el usuario
   user.images.create!(
     url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718",
