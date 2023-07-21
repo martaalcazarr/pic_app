@@ -10,15 +10,50 @@
 # Comment.create(content: "comentario 1", user: User.last, picture: Picture.last)
 
 # Creación de un usuario con su imagen de perfil y un post (picture) asociado
-User.transaction do
-    user = User.new(email: "fakeri@mail.com", password: "123456", password_confirmation: "123456", name: "Persona")
-    user.save!
+
+# Crea un usuario de ejemplo
+# db/seeds.rb
+
+# Crea un usuario de ejemplo
+user = User.create!(
+    email: "faker@mail.com",
+    password: "123456",
+    password_confirmation: "123456",
+    name: "Persona"
+  )
   
-    user_image = user.images.create!(context: "foto1", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718")
+  # Crea una imagen de ejemplo para el usuario
+  user.images.create!(
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718",
+    context: "imagen de perfil de usuario"
+  )
   
-    user.pictures.create!(context: "foto1", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718")
+  # Crea un post (picture) de ejemplo asociado al usuario
+  picture = user.pictures.create!(
+    name: "foto 1",
+    description: "description 1",
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718",
+    context: "foto1"
+  )
   
-    # Creación de un comentario relacionado con el usuario y el post (picture) creados anteriormente
-    Comment.create!(content: "comentario 1", user: user, picture: user_image)
-  end
+  # Crea comentarios de ejemplo para el post (picture)
+  picture.comments.create!(
+    content: "comentario 1",
+    user: user
+  )
+  
+  picture.comments.create!(
+    content: "QUE BONITO",
+    user: user
+  )
+  
+  picture.comments.create!(
+    content: "ME GUSTA",
+    user: user
+  )
+  
+  picture.comments.create!(
+    content: "GUAPO",
+    user: user
+  )
   
