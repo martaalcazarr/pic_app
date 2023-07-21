@@ -9,4 +9,4 @@ Aws.config.update({
   )
 })
 
-S3_BUCKET = Aws::S3::Resource.new.bucket('your_bucket_name')
+S3_BUCKET = Aws::S3::Resource.new.bucket('pic-app')
