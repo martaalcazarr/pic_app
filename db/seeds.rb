@@ -21,39 +21,40 @@ user = User.find_or_create_by(email: "faker@mail.com") do |u|
     u.name = "Persona"
   end
   # Crea una imagen de ejemplo para el usuario
-  user.images.create!(
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718",
-    context: "imagen de perfil de usuario"
-  )
+  user.images.find_or_create_by!(
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718"
+  ) do |image|
+    image.context = "imagen de perfil de usuario"
+  end
   
   # Crea un post (picture) de ejemplo asociado al usuario
-  picture = user.pictures.create!(
+  picture = user.pictures.find_or_create_by!(
     name: "foto 1",
     description: "description 1",
   )
   
   # Luego, crea la imagen y asóciala a la picture recién creada
-  image = picture.images.create!(
+  image = picture.images.find_or_create_by!(
     url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718"
   )
   
   # Crea comentarios de ejemplo para el post (picture)
-  picture.comments.create!(
+  picture.comments.find_or_create_by!(
     content: "comentario 1",
     user: user
   )
   
-  picture.comments.create!(
+  picture.comments.find_or_create_by!(
     content: "QUE BONITO",
     user: user
   )
   
-  picture.comments.create!(
+  picture.comments.find_or_create_by!(
     content: "ME GUSTA",
     user: user
   )
   
-  picture.comments.create!(
+  picture.comments.find_or_create_by!(
     content: "GUAPO",
     user: user
   )
