@@ -30,8 +30,13 @@ user = User.find_or_create_by(email: "faker@mail.com") do |u|
   picture = user.pictures.create!(
     name: "foto 1",
     description: "description 1",
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718",
     context: "foto1"
+  )
+  
+  # Luego, crea la imagen y asóciala a la picture recién creada
+  image = picture.images.create!(
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/800px-A-Cat.jpg?20101227100718",
+    context: "imagen de la picture"
   )
   
   # Crea comentarios de ejemplo para el post (picture)
