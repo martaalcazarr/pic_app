@@ -30,7 +30,6 @@ user = User.find_or_create_by(email: "faker@mail.com") do |u|
   picture = user.pictures.create!(
     name: "foto 1",
     description: "description 1",
-    context: "foto1"
   )
   
   # Luego, crea la imagen y asóciala a la picture recién creada
