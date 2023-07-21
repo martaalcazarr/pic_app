@@ -1,10 +1,26 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @comment %>
-
-<div>
-  <%= link_to "Edit this comment", edit_comment_path(@comment) %> |
-  <%= link_to "Back to comments", comments_path %>
-
-  <%= button_to "Destroy this comment", @comment, method: :delete %>
-</div>
+<% if @comment %>
+  <p>
+    <strong>Content:</strong>
+    <%= @comment.content %>
+  </p>
+  <p>
+    <!-- Mostrar la imagen de perfil del usuario que hizo el comentario, si está disponible -->
+    <% if @comment.user && @comment.user.images.any? %>
+      <%= image_tag(@comment.user.images.first.url) %>
+    <% else %>
+      <!-- Si el usuario no tiene imagen de perfil, muestra una imagen por defecto o un texto alternativo -->
+      <%= image_tag('default_profile_image.png') %>
+      <!-- O simplemente muestra el nombre del usuario -->
+      <%= @comment.user.name if @comment.user %>
+    <% end %>
+  </p>
+  <div>
+    <%= link_to "Edit this comment", edit_comment_path(@comment) %> |
+    <%= link_to "Back to comments", comments_path %>
+  </div>
+<% else %>
+  <!-- Agregar enlace para ir al inicio -->
+  <%= link_to "Go to Home", pictures_path %>
+<% end %>

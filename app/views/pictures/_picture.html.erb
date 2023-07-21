@@ -11,7 +11,54 @@
 
   <p>
     <strong>User:</strong>
-    <%= picture.user_id %>
+    <%= picture.user.name %>
   </p>
 
+  <p>
+    <strong>Images:</strong>
+    <div class="row">
+      <% picture.images.each do |image| %>
+        <div class="col-md-6">
+          <%= image_tag(image.url, class: "img-fluid") %>
+        </div>
+      <% end %>
+    </div>
+  </p>
+
+ <p>
+  <strong>Comments:</strong>
+  <% picture.comments.each do |comment| %>
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-2">
+          <% if comment.user && comment.user.images.any? %>
+            <%= image_tag(comment.user.images.first.url, class: "img-thumbnail") %>
+          <% else %>
+            <%= image_tag('default_profile_image.png', class: "img-thumbnail") %>
+          <% end %>
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <p class="card-text">
+              <%= comment.content %>
+            </p>
+            <!-- Mostrar el nombre del usuario que hizo el comentario, si está disponible -->
+            <% if comment.user %>
+              <em class="card-text">Por: <%= comment.user.name %></em>
+            <% else %>
+              <em class="card-text">Usuario desconocido</em>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</p>
+
+  <!-- Formulario para agregar un nuevo comentario -->
+  <% if user_signed_in? %>
+    <%= render 'comments/form', comment: Comment.new(picture: picture) %>
+  <% else %>
+    <p>Inicia sesión o regístrate para dejar un comentario.</p>
+  <% end %>
 </div>

@@ -44,6 +44,8 @@ gem "bootsnap", require: false
 gem 'devise'
 gem 'figaro'
 gem 'activestorage'
+gem 'aws-sdk-s3'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 # Use Sass to process CSS
 # gem "sassc-rails"
 

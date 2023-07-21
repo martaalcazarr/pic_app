@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: [:new, :create]
 
   # GET /comments or /comments.json
   def index
@@ -12,7 +12,8 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    @picture = Picture.find(params[:picture_id])
+    @comment = @picture.comments.build
   end
 
   # GET /comments/1/edit
@@ -21,8 +22,10 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @comment = Comment.new(comment_params)
-
+    @picture = Picture.find(params[:comment][:picture_id])
+    @comment = @picture.comments.build(comment_params)
+    @comment.user = current_user
+  
     respond_to do |format|
       if @comment.save
         format.html { redirect_to comment_url(@comment), notice: "Comment was successfully created." }
@@ -33,7 +36,6 @@ class CommentsController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
     respond_to do |format|

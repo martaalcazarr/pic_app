@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :comments
   has_many :images, as: :imageable
+  has_many :pictures
   accepts_nested_attributes_for :images
 end

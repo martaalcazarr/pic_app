@@ -5,9 +5,14 @@ class PicturesController < ApplicationController
   def index
     @pictures = Picture.all
   end
-
+  def user_pictures
+    @user = current_user
+    @pictures = @user.pictures
+  end
   # GET /pictures/1 or /pictures/1.json
   def show
+    @picture = Picture.find(params[:id])
+    @comment = Comment.new
   end
 
   # GET /pictures/new
